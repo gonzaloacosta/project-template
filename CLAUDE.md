@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-<!-- Fill this with the project idea, goals, and scope -->
+{{PROJECT_DESCRIPTION}}
 
-**{{PROJECT_NAME}}** — {{PROJECT_DESCRIPTION}}
+See @README for project overview.
 
 ## Architecture
 
-<!-- Describe the high-level architecture -->
+See @docs/architecture/ for design documents and ADRs.
 
 ```
 TODO: Add architecture diagram
@@ -18,23 +18,47 @@ TODO: Add architecture diagram
 
 ```
 ├── services/
-│   ├── backend/      # Backend API / business logic
-│   └── frontend/     # Frontend application
+│   ├── backend/        # Backend API / business logic
+│   └── frontend/       # Frontend application
 ├── infra/
-│   ├── terraform/    # Infrastructure as Code
-│   ├── kubernetes/   # K8s manifests / Helm charts
-│   └── docker/       # Dockerfiles and compose files
+│   ├── terraform/      # Infrastructure as Code
+│   ├── kubernetes/     # K8s manifests / Helm charts
+│   └── docker/         # Dockerfiles and compose files
 ├── docs/
-│   ├── architecture/ # ADRs and system design
-│   ├── guides/       # How-to guides and runbooks
-│   ├── images/       # Diagrams and screenshots
-│   └── trash/        # Archived/deprecated docs
-├── scripts/          # Dev scripts, automation
+│   ├── architecture/   # ADRs and system design
+│   ├── guides/         # How-to guides and runbooks
+│   ├── images/         # Diagrams and screenshots
+│   └── trash/          # Archived/deprecated docs
+├── scripts/            # Dev scripts, automation
 └── .claude/
-    ├── agents/       # Claude Code sub-agents
-    ├── commands/     # Claude Code custom commands
-    └── settings.json # Claude Code team configuration
+    ├── agents/         # Sub-agents (backend, frontend, devops, devsecops, qa, reviewer, planner)
+    ├── rules/          # Contextual rules (code-quality, security, testing, git-workflow)
+    ├── skills/         # Slash commands (/review, /plan, /deploy, /status)
+    └── settings.json   # Permissions, env vars, team agents
 ```
+
+## Agent Behavior Rules
+
+### Think Before You Act
+- Read existing code before making changes.
+- Check `docs/architecture/` for prior decisions.
+- Follow existing patterns — consistency beats "better".
+
+### Be Honest
+- If my approach is wrong, **tell me**. Don't agree just to be agreeable.
+- If you're uncertain, say "I'm not sure" — don't guess.
+- Never claim code exists without showing the file path and line.
+- Never claim tests pass without running them.
+
+### Stay Focused
+- Fix only what was asked. Don't refactor adjacent files unless requested.
+- If you notice other issues, mention them — don't fix them silently.
+- After 2 failed fix attempts, **stop and explain** what you've learned.
+
+### Quality Gates
+- Run tests before and after changes.
+- Run the linter before committing.
+- Keep files under 300 lines — refactor if they grow larger.
 
 ## Tech Stack
 
@@ -46,7 +70,7 @@ TODO: Add architecture diagram
 | **Infrastructure** | TODO |
 | **CI/CD** | GitHub Actions |
 
-## Development
+## Commands
 
 ```bash
 # Setup
@@ -64,15 +88,15 @@ TODO
 
 ## Agents
 
-This project uses Claude Code sub-agents for specialized tasks:
-
-| Agent | Role | Model |
-|-------|------|-------|
-| backend | Backend development | sonnet |
-| frontend | Frontend development | sonnet |
-| devops | Infrastructure & CI/CD | sonnet |
-| devsecops | Security & compliance | sonnet |
-| qa | Testing & quality | sonnet |
+| Agent | Role | Model | Tools |
+|-------|------|-------|-------|
+| backend | Backend development | sonnet | Full |
+| frontend | Frontend development | sonnet | Full |
+| devops | Infrastructure & CI/CD | sonnet | Full |
+| devsecops | Security & compliance | sonnet | Full |
+| qa | Testing & quality | sonnet | Full |
+| reviewer | Code review (read-only) | haiku | Read, Glob, Grep |
+| planner | Architecture & planning (read-only) | sonnet | Read, Glob, Grep |
 
 ## Important Notes
 

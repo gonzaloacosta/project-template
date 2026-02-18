@@ -44,3 +44,7 @@ logs/
 coverage/
 .nyc_output/
 htmlcov/
+
+# Claude Code local (personal, not shared)
+CLAUDE.local.md
+.claude/settings.local.json

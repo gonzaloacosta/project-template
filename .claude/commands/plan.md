@@ -1,1 +1,0 @@
-Review the project CLAUDE.md and create a detailed implementation plan. Break the project into phases, identify dependencies, and suggest which agents should handle each task. Output the plan to `docs/architecture/implementation-plan.md`.
